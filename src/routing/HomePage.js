@@ -1,17 +1,40 @@
-import { useEffect } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function HomePage() {
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState('');
+
   useEffect(() => {
-    // @TODO - fetching post blogs from the server...
-    //
-    // @HINT - once we got the data, it's maybe time to provoke a rerender...
-  });
-  // pay attention on how to use carefully useEffect, don't hesitate to log !
+    const BASE_URL = 'https://jsonplaceholder.typicode.com';
+
+    const fetchPosts = async () => {
+      try {
+        const { data } = await axios(BASE_URL + '/posts');
+        console.log(data);
+
+        setPosts(data);
+      } catch (err) {
+        console.log(err.message);
+        setError(err.message);
+      }
+    };
+    fetchPosts();
+  }, []);
 
   return (
     <>
       <h1>Blog posts</h1>
-      <p>...</p>
+      {error ? (
+        <p>{error}</p>
+      ) : (
+        posts.map(({ title, body }) => (
+          <div>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </div>
+        ))
+      )}
     </>
   );
 }
