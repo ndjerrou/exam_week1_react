@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const BASE_URL = 'https://jsonplaceholder.typicode.com';
@@ -32,6 +35,7 @@ function HomePage() {
           <div key={id}>
             <h3>{title}</h3>
             <p>{body}</p>
+            <button onClick={() => navigate(`/posts/${id}`)}>Details</button>
           </div>
         ))
       )}
