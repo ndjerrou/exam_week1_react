@@ -28,8 +28,8 @@ function HomePage() {
       {error ? (
         <p>{error}</p>
       ) : (
-        posts.map(({ title, body }) => (
-          <div>
+        posts.map(({ id, title, body }) => (
+          <div key={id}>
             <h3>{title}</h3>
             <p>{body}</p>
           </div>
