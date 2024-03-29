@@ -37,6 +37,9 @@ function BlogPost() {
           <button onClick={() => navigate(`/posts/delete/${id}`)}>
             Delete post
           </button>
+          <button onClick={() => navigate(`/posts/update/${id}`)}>
+            Update post
+          </button>
         </>
       )}
     </div>

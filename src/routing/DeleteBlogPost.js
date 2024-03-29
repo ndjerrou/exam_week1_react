@@ -17,7 +17,8 @@ function DeleteBlogPost() {
       }
     }
     deleteBlogPost();
-  });
+  }, []);
+
   return <div>{error ? { error } : <h5>Post supprimé confirmation!</h5>}</div>;
 }
 
