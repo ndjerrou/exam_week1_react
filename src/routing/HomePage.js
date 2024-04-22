@@ -31,7 +31,7 @@ function HomePage() {
 
     // 2 - status of the http request ?
     try {
-      await axios.delete(`${baseURL}x/${id}`);
+      await axios.delete(`${baseURL}/${id}`);
     } catch (err) {
       console.log(err.message);
 

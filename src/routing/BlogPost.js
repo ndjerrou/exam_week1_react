@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function BlogPost() {
   const [post, setPost] = useState(null);
@@ -24,7 +24,9 @@ function BlogPost() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <h2>{post?.title}</h2>
       <p>{post?.body}</p>
-      <button>Update blog post</button>
+      <button>
+        <Link to={`/posts/${id}/edit`}>Update blog post</Link>
+      </button>
     </div>
   );
 }
