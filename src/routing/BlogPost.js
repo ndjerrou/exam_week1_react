@@ -1,47 +1,30 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function BlogPost() {
-  const [post, setPost] = useState({});
-  const [error, setError] = useState('');
+  const [post, setPost] = useState(null);
+  const [error, setError] = useState(null);
 
   const { id } = useParams();
-  const navigate = useNavigate();
+
+  const baseURL = 'https://jsonplaceholder.typicode.com';
 
   useEffect(() => {
-    async function fetchBlogPost() {
-      const BASE_URL = 'https://jsonplaceholder.typicode.com';
-
-      try {
-        const { data } = await axios(BASE_URL + `/posts/${id}`);
-
+    axios(`${baseURL}/posts/${id}`)
+      .then(({ data }) => {
         setPost(data);
-      } catch (err) {
-        console.log(err.message);
-        setError(err.message);
-      }
-    }
-
-    fetchBlogPost();
+        setError(null);
+      })
+      .catch(err => setError(err.message));
   }, []);
 
   return (
     <div>
-      {error ? (
-        { error }
-      ) : (
-        <>
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-          <button onClick={() => navigate(`/posts/delete/${id}`)}>
-            Delete post
-          </button>
-          <button onClick={() => navigate(`/posts/update/${id}`)}>
-            Update post
-          </button>
-        </>
-      )}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h2>{post?.title}</h2>
+      <p>{post?.body}</p>
+      <button>Update blog post</button>
     </div>
   );
 }
